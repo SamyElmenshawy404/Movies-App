@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/api_manager.dart';
 import 'package:movies/model/TopRatedResponse.dart';
+import 'package:movies/network/remote/api_manager.dart';
 
 import 'recomended_item.dart';
 

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movies/model/pupular_response.dart';
+import 'package:movies/model/TopRatedResponse.dart';
 import 'package:movies/presentation_layer/movies_wedgets/new_releases_section_wedgets/new_releases_section.dart';
 import 'package:movies/presentation_layer/movies_wedgets/recomended_section_wedgets/recomended_section.dart';
-import 'package:video_player/video_player.dart';
 
-import '../../api_manager.dart';
+import '../../network/remote/api_manager.dart';
 
 // class HomeScreen extends StatelessWidget {
 //   @override
@@ -101,19 +100,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Popular>? items;
-  late VideoPlayerController controller;
+  List<TopRated>? items;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = VideoPlayerController.network(
-        'https://image.tmdb.org/t/p/w500/${items![0].video}')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
   }
 
   @override
@@ -123,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        FutureBuilder<PopularResponse>(
-          future: ApiManager.fetchPopular(),
+        FutureBuilder<TopRatedResponse>(
+          future: ApiManager.fetchTopRated(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               items = snapshot.data!.results;
@@ -143,43 +135,21 @@ class _HomeScreenState extends State<HomeScreen> {
               height: MediaQuery.of(context).size.height * .35,
               child: Stack(
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * .25,
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                        ),
-                        child: Center(
-                          child: controller.value.isInitialized
-                              ? AspectRatio(
-                                  aspectRatio: controller.value.aspectRatio,
-                                  child: VideoPlayer(controller),
-                                )
-                              : Container(),
-                        ),
-                      ),
-                      FloatingActionButton(
-                        onPressed: () {
-                          setState(() {
-                            controller.value.isPlaying
-                                ? controller.pause()
-                                : controller.play();
-                          });
-                        },
-                        child: Icon(
-                          controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                        ),
-                      ),
-                    ],
+                  Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * .25,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                    ),
+                    child: Image.network(
+                      'https://image.tmdb.org/t/p/w500/${items![0].backdropPath}',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
                     bottom: 0,
                     child: Container(
-                      margin: EdgeInsets.only(left: 30),
+                      margin: EdgeInsets.only(left: 10),
                       height: 170,
                       width: 115,
                       child: ClipRRect(
@@ -192,8 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Positioned(
-                    bottom: 30,
-                    right: 30,
+                    bottom: 10,
+                    right: 10,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

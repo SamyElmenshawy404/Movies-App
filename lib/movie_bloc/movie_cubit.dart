@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/model/pupular_response.dart';
 import 'package:movies/presentation_layer/movie_screens/browse_screen.dart';
 import 'package:movies/presentation_layer/movie_screens/home_screen.dart';
 import 'package:movies/presentation_layer/movie_screens/search_screen.dart';
@@ -16,7 +14,7 @@ class MovieCubit extends Cubit<MovieState> {
     HomeScreen(),
     searchScreen(),
     browseScreen(),
-    watchListScreen(),
+    WatchListScreen(),
   ];
 
   MovieCubit() : super(MovieInitial());

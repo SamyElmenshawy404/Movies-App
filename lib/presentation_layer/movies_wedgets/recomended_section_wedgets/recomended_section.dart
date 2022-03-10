@@ -9,18 +9,13 @@ class RecommendedListSection extends StatelessWidget {
     return Container(
       color: Color(0xff707070),
       height: 180,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(padding: EdgeInsets.all(10), child: Text('Recommended')),
-            RecommendedList(),
-          ],
-        ),
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(padding: EdgeInsets.all(10), child: Text('Recommended')),
+          Expanded(child: RecommendedList()),
+        ],
       ),
     );
   }

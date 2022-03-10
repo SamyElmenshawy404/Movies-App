@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movies/api_manager.dart';
-import 'package:movies/model/pupular_response.dart';
+import 'package:movies/model/TopRatedResponse.dart';
+import 'package:movies/network/remote/api_manager.dart';
 
 import 'new_releases_item.dart';
 
 class NewReleaseList extends StatelessWidget {
-  List<Popular>? items;
+  List<TopRated>? items;
 
   @override
   build(BuildContext context) {
-    return FutureBuilder<PopularResponse>(
-      future: ApiManager.fetchPopular(),
+    return FutureBuilder<TopRatedResponse>(
+      future: ApiManager.fetchTopRated(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           items = snapshot.data!.results;

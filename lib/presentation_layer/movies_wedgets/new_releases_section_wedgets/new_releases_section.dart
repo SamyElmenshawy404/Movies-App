@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'new_releases_list.dart';
@@ -10,14 +9,12 @@ class NewReleasesListSection extends StatelessWidget {
       color: Color(0xff707070),
       height: 180,
       width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(padding: EdgeInsets.all(10), child: Text('New Releases')),
-            NewReleaseList(),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(padding: EdgeInsets.all(10), child: Text('New Releases')),
+          Expanded(child: NewReleaseList()),
+        ],
       ),
     );
   }
